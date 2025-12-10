@@ -63,5 +63,11 @@ int read_file(const char *filename, format_t format, buffer_t *buffer);
  */
 int write_file(const char *filename, format_t format, const buffer_t *buffer);
 
+/**
+ * @brief free buffer resources
+ * @param buffer buffer structure
+ */
+void free_buffer(buffer_t *buffer);
+
 #endif /* BITKITCHEN_H */
 
