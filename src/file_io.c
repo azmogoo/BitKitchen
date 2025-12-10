@@ -78,3 +78,11 @@ int write_file(const char *filename, format_t format, const buffer_t *buffer) {
     return result;
 }
 
+void free_buffer(buffer_t *buffer) {
+    if (buffer->data) {
+        free(buffer->data);
+        buffer->data = NULL;
+    }
+    buffer->size = 0;
+}
+
