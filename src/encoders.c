@@ -69,3 +69,42 @@ int encode_hex(const uint8_t *input, size_t input_size, char *output) {
     return 0;
 }
 
+/* b64 alphabet */
+static const char base64_table[] = 
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+
+int encode_base64(const uint8_t *input, size_t input_size, char *output, size_t output_size) {
+    size_t output_idx = 0;
+    size_t i;
+    for (i = 0; i < input_size; i += 3) {
+        if (output_idx + 4 >= output_size) {
+            return -1;  /* output buffer too small */
+        }
+        uint32_t buffer = 0;
+        int bytes_to_process = (input_size - i < 3) ? (int)(input_size - i) : 3;
+
+        /* build 24-bit buffer */
+        for (int j = 0; j < bytes_to_process; j++) {
+            buffer = (buffer << 8) | input[i + j];
+        }
+
+        /* encode to base64 */
+        int bits = bytes_to_process * 8;
+        int chars_to_write = (bits + 5) / 6;
+
+        for (int j = 0; j < chars_to_write; j++) {
+            int shift = (3 - j) * 6;
+            int index = (buffer >> shift) & 0x3F;
+            output[output_idx++] = base64_table[index];
+        }
+
+        /* add padding if needed */
+        while (chars_to_write < 4) {
+            output[output_idx++] = '=';
+            chars_to_write++;
+        }
+    }
+    output[output_idx] = '\0';
+    return (int)output_idx;
+}
+

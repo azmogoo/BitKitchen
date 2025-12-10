@@ -27,5 +27,15 @@ int decode_hex(const char *hex, uint8_t *output, size_t output_size);
  */
 int encode_hex(const uint8_t *input, size_t input_size, char *output);
 
+/**
+ * @brief encode bytes to base64 string
+ * @param input input bytes
+ * @param input_size number of bytes
+ * @param output output base64 string buffer
+ * @param output_size output buffer size
+ * @return number of characters written, or -1 on error
+ */
+int encode_base64(const uint8_t *input, size_t input_size, char *output, size_t output_size);
+
 #endif /* ENCODERS_H */
 
