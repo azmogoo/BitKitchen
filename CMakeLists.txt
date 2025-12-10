@@ -11,3 +11,14 @@ set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -O2")
 
 # Include directories
 include_directories(include)
+
+# Source files
+set(SOURCES
+    src/main.c
+    src/file_io.c
+    src/encoders.c
+    src/actions.c
+)
+
+# Create executable
+add_executable(bitkitchen ${SOURCES})
