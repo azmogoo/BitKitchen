@@ -51,3 +51,30 @@ int read_file(const char *filename, format_t format, buffer_t *buffer) {
     return result;
 }
 
+int write_file(const char *filename, format_t format, const buffer_t *buffer) {
+    FILE *file;
+    int result = -1;
+
+    file = fopen(filename, "wb");
+    if (!file) {
+        perror("opening output file");
+        return -1;
+    }
+
+    if (format == FORMAT_BYTES) {
+        size_t written = fwrite(buffer->data, 1, buffer->size, file);
+        if (written != buffer->size) {
+            fprintf(stderr, "failed to write entire file\n");
+            fclose(file);
+            return -1;
+        }
+        result = 0;
+    } else {
+        fprintf(stderr, "format not yet supported\n");
+        result = -1;
+    }
+
+    fclose(file);
+    return result;
+}
+
