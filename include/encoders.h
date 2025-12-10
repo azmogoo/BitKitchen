@@ -10,6 +10,15 @@
 #include <stdint.h>
 
 /**
+ * @brief decode hex string to bytes
+ * @param hex input hex string (null-terminated)
+ * @param output output buffer
+ * @param output_size output buffer size
+ * @return number of bytes decoded, or -1 on error
+ */
+int decode_hex(const char *hex, uint8_t *output, size_t output_size);
+
+/**
  * @brief encode bytes to hex string
  * @param input input bytes
  * @param input_size number of bytes
