@@ -43,6 +43,39 @@ int read_file(const char *filename, format_t format, buffer_t *buffer) {
             return -1;
         }
         result = 0;
+    } else if (format == FORMAT_HEX) {
+        /* need to decode hex */
+        char *file_content = (char *)malloc(file_size + 1);
+        if (!file_content) {
+            fprintf(stderr, "memory allocation failed\n");
+            fclose(file);
+            return -1;
+        }
+        size_t read_size = fread(file_content, 1, file_size, file);
+        file_content[read_size] = '\0';
+
+        /* estimate output size */
+        size_t max_output_size = file_size / 2 + 1;
+        buffer->data = (uint8_t *)malloc(max_output_size);
+        if (!buffer->data) {
+            fprintf(stderr, "memory allocation failed\n");
+            free(file_content);
+            fclose(file);
+            return -1;
+        }
+
+        int decoded_size = decode_hex(file_content, buffer->data, max_output_size);
+        if (decoded_size < 0) {
+            fprintf(stderr, "invalid hex format\n");
+            free(buffer->data);
+            buffer->data = NULL;
+            free(file_content);
+            result = -1;
+        } else {
+            buffer->size = (size_t)decoded_size;
+            result = 0;
+        }
+        free(file_content);
     } else {
         fprintf(stderr, "format not yet supported\n");
         result = -1;
