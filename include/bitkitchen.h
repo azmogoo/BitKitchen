@@ -45,5 +45,23 @@ typedef struct {
     size_t size;
 } buffer_t;
 
+/**
+ * @brief read file and decode according to input format
+ * @param filename input filename
+ * @param format input format
+ * @param buffer output buffer structure
+ * @return 0 on success, -1 on error
+ */
+int read_file(const char *filename, format_t format, buffer_t *buffer);
+
+/**
+ * @brief encode buffer and write to file
+ * @param filename output filename
+ * @param format output format
+ * @param buffer input buffer structure
+ * @return 0 on success, -1 on error
+ */
+int write_file(const char *filename, format_t format, const buffer_t *buffer);
+
 #endif /* BITKITCHEN_H */
 
