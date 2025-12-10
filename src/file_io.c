@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../include/bitkitchen.h"
+#include "../include/encoders.h"
 
 int read_file(const char *filename, format_t format, buffer_t *buffer) {
     FILE *file;
@@ -68,6 +69,30 @@ int write_file(const char *filename, format_t format, const buffer_t *buffer) {
             fclose(file);
             return -1;
         }
+        result = 0;
+    } else if (format == FORMAT_HEX) {
+        /* encode to hex */
+        size_t output_size = buffer->size * 2 + 1;
+        char *output = (char *)malloc(output_size);
+        if (!output) {
+            fprintf(stderr, "memory allocation failed\n");
+            fclose(file);
+            return -1;
+        }
+        if (encode_hex(buffer->data, buffer->size, output) < 0) {
+            fprintf(stderr, "hex encoding failed\n");
+            free(output);
+            fclose(file);
+            return -1;
+        }
+        size_t written = fwrite(output, 1, output_size - 1, file);
+        if (written != output_size - 1) {
+            fprintf(stderr, "failed to write entire file\n");
+            free(output);
+            fclose(file);
+            return -1;
+        }
+        free(output);
         result = 0;
     } else {
         fprintf(stderr, "format not yet supported\n");
