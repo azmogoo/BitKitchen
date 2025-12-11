@@ -17,5 +17,13 @@
  */
 int action_uppercase(uint8_t *data, size_t size);
 
+/**
+ * @brief convert text to lowercase
+ * @param data data buffer
+ * @param size buffer size
+ * @return 0 on success, -1 on error
+ */
+int action_lowercase(uint8_t *data, size_t size);
+
 #endif /* ACTIONS_H */
 
