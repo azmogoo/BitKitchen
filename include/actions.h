@@ -25,5 +25,14 @@ int action_uppercase(uint8_t *data, size_t size);
  */
 int action_lowercase(uint8_t *data, size_t size);
 
+/**
+ * @brief apply caesar cipher
+ * @param data data buffer
+ * @param size buffer size
+ * @param shift shift value (positive or negative)
+ * @return 0 on success, -1 on error
+ */
+int action_caesar(uint8_t *data, size_t size, int shift);
+
 #endif /* ACTIONS_H */
 
