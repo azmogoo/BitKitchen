@@ -34,5 +34,14 @@ int action_lowercase(uint8_t *data, size_t size);
  */
 int action_caesar(uint8_t *data, size_t size, int shift);
 
+/**
+ * @brief apply xor operation
+ * @param data data buffer
+ * @param size buffer size
+ * @param key xor key (null-terminated string)
+ * @return 0 on success, -1 on error
+ */
+int action_xor(uint8_t *data, size_t size, const char *key);
+
 #endif /* ACTIONS_H */
 

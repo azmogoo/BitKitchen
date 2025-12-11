@@ -5,6 +5,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <ctype.h>
 #include "../include/actions.h"
 
@@ -38,6 +39,17 @@ int action_caesar(uint8_t *data, size_t size, int shift) {
         } else if (data[i] >= 'A' && data[i] <= 'Z') {
             data[i] = 'A' + ((data[i] - 'A' + shift) % 26);
         }
+    }
+    return 0;
+}
+
+int action_xor(uint8_t *data, size_t size, const char *key) {
+    if (!key || strlen(key) == 0) {
+        return -1;
+    }
+    size_t key_len = strlen(key);
+    for (size_t i = 0; i < size; i++) {
+        data[i] ^= (uint8_t)key[i % key_len];
     }
     return 0;
 }
