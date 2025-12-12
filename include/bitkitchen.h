@@ -69,5 +69,37 @@ int write_file(const char *filename, format_t format, const buffer_t *buffer);
  */
 void free_buffer(buffer_t *buffer);
 
+
+/**
+ * @brief parse command line arguments
+ * @param argc argument count
+ * @param argv argument vector
+ * @param config output configuration structure
+ * @return 0 on success, -1 on error, -2 for help
+ */
+int parse_arguments(int argc, char *argv[], config_t *config);
+
+/**
+ * @brief free configuration resources
+ * @param config configuration structure
+ */
+void free_config(config_t *config);
+
 #endif /* BITKITCHEN_H */
+
+
+/**
+ * @brief parse command line arguments
+ * @param argc argument count
+ * @param argv argument vector
+ * @param config output configuration structure
+ * @return 0 on success, -1 on error, -2 for help
+ */
+int parse_arguments(int argc, char *argv[], config_t *config);
+
+/**
+ * @brief free configuration resources
+ * @param config configuration structure
+ */
+void free_config(config_t *config);
 
