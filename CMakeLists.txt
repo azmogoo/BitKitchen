@@ -19,6 +19,7 @@ set(SOURCES
     src/encoders.c
     src/actions.c
     src/args.c
+    src/processor.c
 )
 
 # Create executable
