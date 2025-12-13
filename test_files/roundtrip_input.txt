@@ -1,0 +1,2 @@
+Round-trip data, keep the same bytes after encode/decode.
+
