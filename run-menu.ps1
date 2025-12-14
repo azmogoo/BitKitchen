@@ -1,10 +1,14 @@
 Param()
 
 $root = Split-Path -Parent $MyInvocation.MyCommand.Definition
-$exe = Join-Path $root "build\bitkitchen.exe"
+# Try cmake-build-debug first (CLion default), then build
+$exe = Join-Path $root "cmake-build-debug\bitkitchen.exe"
+if (-not (Test-Path $exe)) {
+    $exe = Join-Path $root "build\bitkitchen.exe"
+}
 
 if (-not (Test-Path $exe)) {
-    Write-Host "`nplease build the project first (`cmake --build` in `build`).`n"
+    Write-Host "`nplease build the project first (cmake --build build or use CLion to build).`n"
     exit 1
 }
 
